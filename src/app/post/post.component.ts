@@ -1,7 +1,9 @@
+import { NotFoundError } from './../common/not-found-error';
 import { BadInput } from './../common/bad-input';
 import { AppError } from './../common/app-error';
 import { PostService } from './../service/post.service';
 import { Component, OnInit } from '@angular/core';
+import 'rxjs/add/observable/throw';
 
 @Component({
   selector: 'post',
@@ -62,9 +64,9 @@ export class PostComponent implements OnInit
           let index = this.posts.indexOf(post);
           console.log(index);
           this.posts.splice(index, 1);
-      }, (error: Response) => {
+      }, (error: AppError) => {
 
-        if (error.status === 404)
+        if (error instanceof NotFoundError)
           alert('This post has already been deleted.')
         else{
           alert('An unexpected error occured');
