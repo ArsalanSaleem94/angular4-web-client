@@ -40,8 +40,7 @@ export class PostComponent implements OnInit
           alert("404");
         }
         else{
-          alert('An unexpected error occured.');
-          console.log(error);
+          throw error;
         }
     });
     
@@ -51,10 +50,7 @@ export class PostComponent implements OnInit
     this.service.patchPost()
       .subscribe(response => {
         console.log(response);
-      }, error => {
-      alert('An unexpected error occured.');
-      console.log(error);
-    });
+          });
   }
 
   deletePost(post){
@@ -69,8 +65,7 @@ export class PostComponent implements OnInit
         if (error instanceof NotFoundError)
           alert('This post has already been deleted.')
         else{
-          alert('An unexpected error occured');
-          console.log(error);
+          throw error;
         }
     })
   }
@@ -82,8 +77,12 @@ export class PostComponent implements OnInit
     .subscribe(response => {
       this.posts = response.json();
     }, error => {
-      alert('An unexpected error occured.');
-      console.log(error);
+
+      //These two lines are repeated, 
+      // alert('An unexpected error occured.');
+      // console.log(error);
+
+      //^ Moved to App-error-handler.ts class
     });
   }
 }
