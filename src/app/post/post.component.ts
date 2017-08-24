@@ -6,15 +6,12 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
-export class PostComponent
+export class PostComponent implements OnInit
 {
   posts: any[];
   private url = "https://jsonplaceholder.typicode.com/posts"
   constructor(private http: Http){
-    http.get(this.url)
-    .subscribe(response => {
-      this.posts = response.json();
-    });
+    
   }
 
   createPost(input: HTMLInputElement){
@@ -26,7 +23,7 @@ export class PostComponent
         post.id = response.json().id;
         this.posts.splice(0, 0, post)
 
-        
+
         console.log(response);
       });
     
@@ -47,5 +44,14 @@ export class PostComponent
           console.log(index);
           this.posts.splice(index, 1);
       })
+  }
+
+  ngOnInit(){
+    // You can use this code as a page_load method
+    //Do not call http calls on constructor, use ngOnInit
+    this.http.get(this.url)
+    .subscribe(response => {
+      this.posts = response.json();
+    });
   }
 }
