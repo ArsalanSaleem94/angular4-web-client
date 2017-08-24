@@ -5,6 +5,12 @@ import { Http } from "@angular/http";
 @Injectable()
 export class PostService {
 
+  /*
+    Handling Errors
+    2 types of error:
+      - Unexpected
+      - Expected
+  */
   private url = "https://jsonplaceholder.typicode.com/posts"
 
   constructor(private http: Http) { }
