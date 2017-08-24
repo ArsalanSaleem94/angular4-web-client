@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { InvoicesComponent } from './invoices/invoices.component';
 import { CustomersComponent } from './customers/customers.component';
 import { PostComponent } from './post/post.component';
+import { PostService } from "./service/post.service";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,9 @@ import { PostComponent } from './post/post.component';
     BrowserModule,
     HttpModule
   ],
-  providers: [],
+  providers: [
+    PostService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

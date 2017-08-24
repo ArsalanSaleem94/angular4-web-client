@@ -1,4 +1,4 @@
-import { Http } from '@angular/http';
+import { PostService } from './../service/post.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,20 +9,25 @@ import { Component, OnInit } from '@angular/core';
 export class PostComponent implements OnInit
 {
   posts: any[];
-  private url = "https://jsonplaceholder.typicode.com/posts"
-  constructor(private http: Http){
+  
+  constructor(private service: PostService){
     
   }
+
+  /*
+    This implemenatation violates sepration 
+    of concerns principle, 
+    such a class is hard to maintain and hard to test.
+  */
 
   createPost(input: HTMLInputElement){
     let post:any = {title: input.value};
     input.value = "";
 
-    this.http.post(this.url, JSON.stringify(post))
+    this.service.createPost(post)
       .subscribe(response => {
         post.id = response.json().id;
         this.posts.splice(0, 0, post)
-
 
         console.log(response);
       });
@@ -30,7 +35,7 @@ export class PostComponent implements OnInit
   }
 
   updatePost(post){
-    this.http.patch(this.url + "/1", JSON.stringify({isRead: true}))
+    this.service.patchPost()
       .subscribe(response => {
         console.log(response);
       });
@@ -38,7 +43,7 @@ export class PostComponent implements OnInit
 
   deletePost(post){
     
-    this.http.delete(this.url + '/' + post.id)
+    this.service.deletePost(post)
       .subscribe(response => {
           let index = this.posts.indexOf(post);
           console.log(index);
@@ -49,7 +54,7 @@ export class PostComponent implements OnInit
   ngOnInit(){
     // You can use this code as a page_load method
     //Do not call http calls on constructor, use ngOnInit
-    this.http.get(this.url)
+    this.service.getPosts()
     .subscribe(response => {
       this.posts = response.json();
     });
