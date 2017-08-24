@@ -1,3 +1,5 @@
+import { BadInput } from './../common/bad-input';
+import { AppError } from './../common/app-error';
 import { PostService } from './../service/post.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -30,8 +32,8 @@ export class PostComponent implements OnInit
         this.posts.splice(0, 0, post)
 
         console.log(response);
-      }, (error: Response) => {
-        if(error.status === 404){
+      }, (error: AppError) => {
+        if(error instanceof BadInput){
           // this.form.setErrors(error.json())
           alert("404");
         }
@@ -55,7 +57,7 @@ export class PostComponent implements OnInit
 
   deletePost(post){
     
-    this.service.deletePost(post.id)
+    this.service.deletePost(345)
       .subscribe(response => {
           let index = this.posts.indexOf(post);
           console.log(index);
