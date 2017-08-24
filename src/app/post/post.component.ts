@@ -30,7 +30,10 @@ export class PostComponent implements OnInit
         this.posts.splice(0, 0, post)
 
         console.log(response);
-      });
+      }, error => {
+      alert('An unexpected error occured.');
+      console.log(error);
+    });
     
   }
 
@@ -38,7 +41,10 @@ export class PostComponent implements OnInit
     this.service.patchPost()
       .subscribe(response => {
         console.log(response);
-      });
+      }, error => {
+      alert('An unexpected error occured.');
+      console.log(error);
+    });
   }
 
   deletePost(post){
@@ -48,7 +54,10 @@ export class PostComponent implements OnInit
           let index = this.posts.indexOf(post);
           console.log(index);
           this.posts.splice(index, 1);
-      })
+      }, error => {
+      alert('An unexpected error occured.');
+      console.log(error);
+    })
   }
 
   ngOnInit(){
@@ -57,6 +66,9 @@ export class PostComponent implements OnInit
     this.service.getPosts()
     .subscribe(response => {
       this.posts = response.json();
+    }, error => {
+      alert('An unexpected error occured.');
+      console.log(error);
     });
   }
 }
