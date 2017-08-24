@@ -24,11 +24,11 @@ export class PostComponent implements OnInit
     such a class is hard to maintain and hard to test.
   */
 
-  createPost(input: HTMLInputElement){
+  create(input: HTMLInputElement){
     let post:any = {title: input.value};
     input.value = "";
 
-    this.service.createPost(post)
+    this.service.create(post)
       .subscribe(response => {
         post.id = response.json().id;
         this.posts.splice(0, 0, post)
@@ -47,7 +47,7 @@ export class PostComponent implements OnInit
   }
 
   updatePost(post){
-    this.service.patchPost()
+    this.service.patch()
       .subscribe(response => {
         console.log(response);
           });
@@ -55,7 +55,7 @@ export class PostComponent implements OnInit
 
   deletePost(post){
     
-    this.service.deletePost(345)
+    this.service.delete(345)
       .subscribe(response => {
           let index = this.posts.indexOf(post);
           console.log(index);
@@ -73,7 +73,7 @@ export class PostComponent implements OnInit
   ngOnInit(){
     // You can use this code as a page_load method
     //Do not call http calls on constructor, use ngOnInit
-    this.service.getPosts()
+    this.service.getAll()
     .subscribe(response => {
       this.posts = response.json();
     }, error => {
