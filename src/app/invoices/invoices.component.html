@@ -1,0 +1,21 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Customer Id</th>
+      <th>Discount</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let invoice of invoices">
+      <th scope="row">{{ invoice.id }}</th>
+      <td>{{invoice.customer_id}}</td>
+      <td>{{discount}}</td>
+      <td>{{total}}</td>
+    </tr>
+    
+  </tbody>
+</table>
+<br>
+<button class="btn btn-primary" style="float:right" (click)="onClick()">Create New</button>
