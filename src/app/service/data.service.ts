@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 import { Http } from "@angular/http";
 import {Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/throw';
 
 
 @Injectable()
@@ -13,21 +15,27 @@ export class DataService {
   constructor(private url: string, private http: Http) { }
 
   getAll(){
-    return this.http.get(this.url);
+    return this.http.get(this.url)
+        .map(response => response.json())
+        .catch(this.handleError);
+    ;
   }
 
   create(resource){
     return this.http.post(this.url, JSON.stringify(resource))
-      .catch(this.handleError);
+        .map(response => response.json())
+        .catch(this.handleError);
   }
 
   patch(){
     return this.http.patch(this.url + "/1", JSON.stringify({isRead: true}))
-    .catch(this.handleError);
+        .map(response => response.json())
+        .catch(this.handleError);
   }
 
   delete(id){
     return this.http.delete(this.url + '/' + id)
+      .map(response => response.json())
       .catch(this.handleError)
   }
 

@@ -29,11 +29,11 @@ export class PostComponent implements OnInit
     input.value = "";
 
     this.service.create(post)
-      .subscribe(response => {
-        post.id = response.json().id;
+      .subscribe(posts => {
+        post.id = post.json().id;
         this.posts.splice(0, 0, post)
 
-        console.log(response);
+        console.log(post);
       }, (error: AppError) => {
         if(error instanceof BadInput){
           // this.form.setErrors(error.json())
@@ -73,16 +73,19 @@ export class PostComponent implements OnInit
   ngOnInit(){
     // You can use this code as a page_load method
     //Do not call http calls on constructor, use ngOnInit
+
+
+    //Here we are still working with response on component class..
+    //We will use MAP operator..
+
     this.service.getAll()
-    .subscribe(response => {
-      this.posts = response.json();
-    }, error => {
+    .subscribe(posts => this.posts = posts);
 
       //These two lines are repeated, 
       // alert('An unexpected error occured.');
       // console.log(error);
 
       //^ Moved to App-error-handler.ts class
-    });
+   
   }
 }
