@@ -9,6 +9,7 @@ import { InvoicesComponent } from './invoices/invoices.component';
 import { CustomersComponent } from './customers/customers.component';
 import { PostComponent } from './post/post.component';
 import { PostService } from "./service/post.service";
+import { ContactFormComponent } from './contact-form/contact-form.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { PostService } from "./service/post.service";
     InvoicesComponent,
     CustomersComponent,
     PostComponent,
+    ContactFormComponent,
     
   ],
   imports: [
