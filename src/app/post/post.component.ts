@@ -54,20 +54,7 @@ export class PostComponent implements OnInit
   }
 
   deletePost(post){
-    
-    this.service.delete(345)
-      .subscribe(response => {
-          let index = this.posts.indexOf(post);
-          console.log(index);
-          this.posts.splice(index, 1);
-      }, (error: AppError) => {
-
-        if (error instanceof NotFoundError)
-          alert('This post has already been deleted.')
-        else{
-          throw error;
-        }
-    })
+    this.service.delete(post.id);
   }
 
   ngOnInit(){
